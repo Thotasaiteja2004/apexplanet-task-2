@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Form & To-Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f0f0f0;
+    }
+    h2 {
+      color: #333;
+    }
+    .section {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #todoList {
+      list-style-type: none;
+      padding: 0;
+    }
+    #todoList li {
+      background: #e0f7fa;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #todoList li:hover {
+      background: #b2ebf2;
+    }
+    #contactStatus {
+      margin-top: 10px;
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Contact Form -->
+  <div class="section">
+    <h2>Contact Form</h2>
+    <form id="contactForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+
+      <label for="message">Message:</label>
+      <textarea id="message" rows="4" required></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+    <p id="contactStatus"></p>
+  </div>
+
+  <!-- To-Do List -->
+  <div class="section">
+    <h2>To-Do List</h2>
+    <input type="text" id="todoInput" placeholder="Add a new task">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="todoList"></ul>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Contact Form
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
+
+      document.getElementById("contactStatus").textContent =
+        Thank you, ${name}. We'll contact you at ${email}.;
+      
+      this.reset();
+    });
+
+    // To-Do List
+    function addTask() {
+      const input = document.getElementById("todoInput");
+      const taskText = input.value.trim();
+      if (taskText === "") return;
+
+      const li = document.createElement("li");
+      li.textContent = taskText;
+
+      li.onclick = function() {
+        this.remove(); // Remove task on click
+      };
+
+      document.getElementById("todoList").appendChild(li);
+      input.value = "";
+    }
+  </script>
+
+</body>
+</html>
